@@ -26,7 +26,7 @@ from telethon.errors import (
 @Client.on_message(filters.private & ~filters.forwarded & filters.command("generate"))
 async def main(_, msg):
     await msg.reply(
-        "||» اذا كان حسابك جديد او وهمي (ليس رقم حقيقي) فأستخرج كود بايروجرام لكي لا ينحذف حسابك فأذا كنت تستخدم رقم حقيقي وقديم فأستخرج كود تيرمكس||",
+        "**🥤| اذا كان حسابك جديد او وهمي (ليس رقم حقيقي) فأستخرج كود بايروجرام لكي لا ينحذف حسابك فأذا كنت تستخدم رقم حقيقي وقديم فأستخرج كود تيرمكس**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -40,13 +40,13 @@ async def main(_, msg):
 
 async def generate_session(bot, msg, telethon=False):
     await msg.reply(
-        "تم بدء  {} استخراج الجلسة...".format(
+        "**تم بدء  {} استخراج الجلسة...**".format(
             "Telethon" if telethon else "Pyrogram"
         )
     )
     user_id = msg.chat.id
     api_id_msg = await bot.ask(
-        user_id, "**⎆┊ أرسـل الابب أيـدي الخـاص بـك - Send APP ID Bro ...**", filters=filters.text
+        user_id, "**🥤| أرسـل الابب أيـدي الخـاص بـك - Send APP ID Bro ...**", filters=filters.text
     )
     if await cancelled(api_id_msg):
         return
@@ -54,26 +54,26 @@ async def generate_session(bot, msg, telethon=False):
         api_id = int(api_id_msg.text)
     except ValueError:
         await api_id_msg.reply(
-            "غير صالحAPI_ID(أعد المحاولة).  الخاص بك غير صالح حاول مرة أخرى.",
+            "**🥤| غير صالحAPI_ID(أعد المحاولة).  الخاص بك غير صالح حاول مرة أخرى.**",
             quote=True,
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return
     api_hash_msg = await bot.ask(
-        user_id, "**⎆┊ أرسـل الأيبـي هـاش الخـاص بـك - Send API HASH Bro...**", filters=filters.text
+        user_id, "**🥤| أرسـل الأيبـي هـاش الخـاص بـك - Send API HASH Bro...**", filters=filters.text
     )
     if await cancelled(api_id_msg):
         return
     api_hash = api_hash_msg.text
     phone_number_msg = await bot.ask(
         user_id,
-        "**⎆┊ يـرجـى إرسـال رقـم هاتفـك مـع رمـز الدولة\nمثــال 📱: +96479702387**",
+        "**🥤| يـرجـى إرسـال رقـم هاتفـك مـع رمـز الدولة\nمثــال 📱: +96479702387**",
         filters=filters.text,
     )
     if await cancelled(api_id_msg):
         return
     phone_number = phone_number_msg.text
-    await msg.reply("جاري إرسال الكود انتظر قليلًا لطفًا ♥️...")
+    await msg.reply("**🥤| جاري إرسال الكود انتظر قليلًا من فضلكـ...**")
     if telethon:
         client = TelegramClient(StringSession(), api_id, api_hash)
     else:
@@ -86,13 +86,13 @@ async def generate_session(bot, msg, telethon=False):
             code = await client.send_code(phone_number)
     except (ApiIdInvalid, ApiIdInvalidError):
         await msg.reply(
-            "**⎆┊ الأيبـي أيـدي والأيبـي هـاش غير صالحـان أعـد استخـراج الجلسـة مـرة أخـرى 😭**",
+            "**🥤| الأيبـي أيـدي والأيبـي هـاش غير صالحـان أعـد استخـراج الجلسـة مـرة أخـرى **",
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return
     except (PhoneNumberInvalid, PhoneNumberInvalidError):
         await msg.reply(
-            "**⎆┊ رقـم الهـاتف الذي أرسلـته غير صالح أعـد استخـراج الجلسـة مـرة أخـرى.**",
+            "**🥤| رقـم الهـاتف الذي أرسلـته غير صالح أعـد استخـراج الجلسـة مـرة أخـرى.**",
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return
@@ -102,7 +102,7 @@ async def generate_session(bot, msg, telethon=False):
             return
     except TimeoutError:
         await msg.reply(
-            "لقد تجاوزت الحد الزمني 10 دقائق أعد استخراج الجلسة مرة أخرى.",
+            "**🥤| لقد تجاوزت الحد الزمني 10 دقائق أعد استخراج الجلسة مرة أخرى.**",
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return
@@ -114,13 +114,13 @@ async def generate_session(bot, msg, telethon=False):
             await client.sign_in(phone_number, code.phone_code_hash, phone_code)
     except (PhoneCodeInvalid, PhoneCodeInvalidError):
         await msg.reply(
-            "**⎆┊ الكـود الخـاص بـك غير صالـح\nأعد استخـراج الجلسـة مـرة أخـرى**",
+            "**🥤| الكـود الخـاص بـك غير صالـح\nأعد استخـراج الجلسـة مـرة أخـرى**",
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return
     except (PhoneCodeExpired, PhoneCodeExpiredError):
         await msg.reply(
-            "**⎆┊ انتهت مـدة الكـود\nأعـد استخـراج الجلسـة مـرة أخـرى**",
+            "**🥤| انتهت مـدة الكـود\nأعـد استخـراج الجلسـة مـرة أخـرى**",
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return
@@ -128,13 +128,13 @@ async def generate_session(bot, msg, telethon=False):
         try:
             two_step_msg = await bot.ask(
                 user_id,
-                "التحقق بخطوتين مفعل بحسابك لذا قم بإدخاله هنا لطفًا.",
+                "**🥤| التحقق بخطوتين مفعل بحسابك لذا قم بإرساله هنا من فضلكـ**",
                 filters=filters.text,
                 timeout=300,
             )
         except TimeoutError:
             await msg.reply(
-                "لقد تجاوزت المدة الزمنية يجب عليك إعادة استخراج الجلسة مرة أخرى",
+                "**🥤| لقد تجاوزت المدة الزمنية يجب عليك إعادة استخراج الجلسة مرة أخرى**",
                 reply_markup=InlineKeyboardMarkup(Data.generate_button),
             )
             return
@@ -148,7 +148,7 @@ async def generate_session(bot, msg, telethon=False):
                 return
         except (PasswordHashInvalid, PasswordHashInvalidError):
             await two_step_msg.reply(
-                "التحقق بخطوتين الذي ادخلته خطأ يرجى إعادة الاستخراج مرة أخرى 🤍.",
+                "**🥤| التحقق بخطوتين الذي ادخلته خطأ يرجى إعادة الاستخراج مرة أخرى .**",
                 quote=True,
                 reply_markup=InlineKeyboardMarkup(Data.generate_button),
             )
@@ -157,7 +157,7 @@ async def generate_session(bot, msg, telethon=False):
         string_session = client.session.save()
     else:
         string_session = await client.export_session_string()
-    text = "**{} كود الجلسة** \n\n`{}` \n**استخرجت بواسطة مُستخرج الجوكر\nانتبه لا تعطي الرمز لأي أحد يمكنه الدخول لحسابك عبره كما يستطيع حذف حسابك! @Jepthon**".format(
+    text = "**{} كود الجلسة** \n\n`{}` \n\n**🥤| انتبه لا تعطي الرمز لأي أحد يمكنه الدخول لحسابك عبره كما يستطيع حذف حسابك! **".format(
 "تيرمكس" if telethon else "بايروجرام", string_session
     )
     try:
@@ -166,7 +166,7 @@ async def generate_session(bot, msg, telethon=False):
         pass
     await client.disconnect()
     await phone_code_msg.reply(
-        "تم استخراج {} الجلسة. \n\nيرجى تفحص الرسائل المحفوظة! \n\nمن @jepthon".format(
+        "تم استخراج {} الجلسة. \n\n**🥤| يرجى فحص الرسائل المحفوظة!**".format(
             "telethon" if telethon else "pyrogram"
         )
     )
@@ -174,20 +174,20 @@ async def generate_session(bot, msg, telethon=False):
 async def cancelled(msg):
     if "/cancel" in msg.text:
         await msg.reply(
-            "تم إلغاء استخراج الجلسة!",
+            "**🥤| تم إلغاء استخراج الجلسة!**",
             quote=True,
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return True
     elif "/restart" in msg.text:
         await msg.reply(
-            "تم ترسيت البوت!",
+            "**🥤| تم ترسيت البوت!**",
             quote=True,
             reply_markup=InlineKeyboardMarkup(Data.generate_button),
         )
         return True
     elif msg.text.startswith("/"):  # Bot Commands
-        await msg.reply("تم إلغاؤه!", quote=True)
+        await msg.reply("تم الغاء", quote=True)
         return True
     else:
         return False 
