@@ -15,13 +15,13 @@ async def start(bot: Client, msg: Message):
     mention = user.mention
     await bot.send_message(
         msg.chat.id,
-        text="**شكراً لخوض التجربة مع سورس الجوكر ❤️**",
+        text="**اهلا بك في بوت استخراج الجلسات♥**",
     )
     await asyncio.sleep(2)
     
     await bot.send_message(
         msg.chat.id,
-        text="**عيش التجربة مع سورس الجوكر من حيث**",
+        text="**يتميز البوت...**",
     )
     await asyncio.sleep(2)
 
@@ -37,7 +37,7 @@ async def start(bot: Client, msg: Message):
     await asyncio.sleep(2)
     await bot.send_message(
         msg.chat.id,
-        text="**والمميزات الحصرية 😍**",
+        text="**والمحافظه على معلوماتك😍**",
     )
     await asyncio.sleep(3)
     await bot.send_message(
